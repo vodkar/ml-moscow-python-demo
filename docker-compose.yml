@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  titanic-ml-api:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./artifacts:/app/artifacts
+      - ./data:/app/data
+    environment:
+      - PYTHONPATH=/app
+    command: ["python", "-m", "titanic_ml.cli", "serve", "--host", "0.0.0.0", "--port", "8000"]
+    
+  titanic-ml-training:
+    build: .
+    volumes:
+      - ./artifacts:/app/artifacts
+      - ./data:/app/data
+    environment:
+      - PYTHONPATH=/app
+    command: ["python", "-m", "titanic_ml.cli", "train", "--optimize", "true", "--trials", "50"]
+    profiles:
+      - training

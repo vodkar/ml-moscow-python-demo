@@ -1,0 +1,36 @@
+2025-09-15 10:46:04.534 | INFO     | titanic_ml.data:_validate_files:37 - Data files validated: data/train.csv, data/test.csv
+2025-09-15 10:46:04.534 | INFO     | titanic_ml.data:load_train_data:43 - Loading training data from data/train.csv
+2025-09-15 10:46:04.547 | INFO     | titanic_ml.data:load_train_data:59 - Loaded training data: 891 rows, 12 columns
+2025-09-15 10:46:04.547 | INFO     | titanic_ml.data:load_test_data:66 - Loading test data from data/test.csv
+2025-09-15 10:46:04.548 | INFO     | titanic_ml.data:load_test_data:81 - Loaded test data: 418 rows, 11 columns
+2025-09-15 10:46:04.549 | INFO     | titanic_ml.preprocessing:fit_transform:132 - Fitting preprocessor on training data
+2025-09-15 10:46:04.549 | INFO     | titanic_ml.preprocessing:_create_features:35 - Creating engineered features
+2025-09-15 10:46:04.566 | INFO     | titanic_ml.preprocessing:_handle_missing_values:58 - Handling missing values
+2025-09-15 10:46:04.574 | INFO     | titanic_ml.preprocessing:_encode_categorical_features:88 - Encoding categorical features
+2025-09-15 10:46:04.579 | INFO     | titanic_ml.preprocessing:_select_features:127 - Selected features: ['Age', 'Fare', 'Pclass', 'SibSp', 'Parch', 'Sex', 'Embarked', 'FamilySize', 'IsAlone', 'Title', 'FarePerPerson', 'AgeGroup', 'Survived', 'PassengerId']
+2025-09-15 10:46:04.580 | INFO     | titanic_ml.preprocessing:fit_transform:147 - Preprocessor fitted successfully
+2025-09-15 10:46:04.581 | INFO     | titanic_ml.models:train_model:131 - Training random_forest model
+2025-09-15 10:46:04.582 | INFO     | titanic_ml.models:optimize_hyperparameters:105 - Starting hyperparameter optimization with 5 trials
+2025-09-15 10:46:10.033 | INFO     | titanic_ml.models:optimize_hyperparameters:118 - Best trial score: 0.8395
+2025-09-15 10:46:10.033 | INFO     | titanic_ml.models:optimize_hyperparameters:119 - Best parameters: {'n_estimators': 633, 'max_depth': 6, 'min_samples_split': 13, 'min_samples_leaf': 2, 'max_features': None}
+2025-09-15 10:46:11.498 | INFO     | titanic_ml.models:train_model:165 - Cross-validation accuracy: 0.8395 ± 0.0151
+2025-09-15 10:46:11.499 | INFO     | titanic_ml.models:save_model:174 - Saving model to artifacts/model.joblib
+2025-09-15 10:46:11.594 | INFO     | titanic_ml.models:save_model:177 - Saving preprocessor to artifacts/preprocessor.joblib
+2025-09-15 10:51:05.572 | INFO     | titanic_ml.data:_validate_files:37 - Data files validated: data/train.csv, data/test.csv
+2025-09-15 10:51:05.573 | INFO     | titanic_ml.data:load_train_data:43 - Loading training data from data/train.csv
+2025-09-15 10:51:05.575 | INFO     | titanic_ml.data:load_train_data:59 - Loaded training data: 891 rows, 12 columns
+2025-09-15 10:51:05.575 | INFO     | titanic_ml.data:load_test_data:68 - Loading test data from data/test.csv
+2025-09-15 10:51:05.576 | INFO     | titanic_ml.data:load_test_data:83 - Loaded test data: 418 rows, 11 columns
+2025-09-15 10:51:05.576 | INFO     | titanic_ml.preprocessing:fit_transform:152 - Fitting preprocessor on training data
+2025-09-15 10:51:05.576 | INFO     | titanic_ml.preprocessing:_create_features:41 - Creating engineered features
+2025-09-15 10:51:05.578 | INFO     | titanic_ml.preprocessing:_handle_missing_values:72 - Handling missing values
+2025-09-15 10:51:05.580 | INFO     | titanic_ml.preprocessing:_encode_categorical_features:110 - Encoding categorical features
+2025-09-15 10:51:05.583 | INFO     | titanic_ml.preprocessing:_select_features:147 - Selected features: ['Age', 'Fare', 'Pclass', 'SibSp', 'Parch', 'Sex', 'Embarked', 'FamilySize', 'IsAlone', 'Title', 'FarePerPerson', 'AgeGroup', 'Survived', 'PassengerId']
+2025-09-15 10:51:05.584 | INFO     | titanic_ml.preprocessing:fit_transform:167 - Preprocessor fitted successfully
+2025-09-15 10:51:05.585 | INFO     | titanic_ml.models:train_model:137 - Training random_forest model
+2025-09-15 10:51:05.585 | INFO     | titanic_ml.models:optimize_hyperparameters:109 - Starting hyperparameter optimization with 50 trials
+2025-09-15 10:51:34.133 | INFO     | titanic_ml.models:optimize_hyperparameters:127 - Best trial score: 0.8485
+2025-09-15 10:51:34.134 | INFO     | titanic_ml.models:optimize_hyperparameters:128 - Best parameters: {'n_estimators': 381, 'max_depth': 14, 'min_samples_split': 9, 'min_samples_leaf': 1, 'max_features': None}
+2025-09-15 10:51:35.198 | INFO     | titanic_ml.models:train_model:181 - Cross-validation accuracy: 0.8485 ± 0.0143
+2025-09-15 10:51:35.198 | INFO     | titanic_ml.models:save_model:192 - Saving model to artifacts/model.joblib
+2025-09-15 10:51:35.254 | INFO     | titanic_ml.models:save_model:195 - Saving preprocessor to artifacts/preprocessor.joblib
