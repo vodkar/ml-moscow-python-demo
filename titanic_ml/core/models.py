@@ -9,19 +9,22 @@ from pydantic import BaseModel, Field, field_validator
 
 class Sex(str, Enum):
     """Gender enumeration."""
+
     MALE = "male"
     FEMALE = "female"
 
 
 class Embarked(str, Enum):
     """Port of embarkation enumeration."""
+
     CHERBOURG = "C"
-    QUEENSTOWN = "Q" 
+    QUEENSTOWN = "Q"
     SOUTHAMPTON = "S"
 
 
 class PassengerRecord(BaseModel):
     """Individual passenger record."""
+
     PassengerId: int = Field(description="Passenger identifier")
     Pclass: int = Field(ge=1, le=3, description="Ticket class")
     Name: str = Field(description="Passenger name")
@@ -38,6 +41,7 @@ class PassengerRecord(BaseModel):
 
 class ModelConfig(BaseModel):
     """Model training configuration."""
+
     model_type: str = Field(default="xgboost")
     hyperparameters: Dict[str, Any] = Field(default_factory=dict)
     cv_folds: int = Field(default=5, ge=2)
@@ -47,8 +51,9 @@ class ModelConfig(BaseModel):
 
 class TrainingMetrics(BaseModel):
     """Model training metrics."""
+
     accuracy: float = Field(ge=0, le=1)
-    precision: float = Field(ge=0, le=1) 
+    precision: float = Field(ge=0, le=1)
     recall: float = Field(ge=0, le=1)
     f1_score: float = Field(ge=0, le=1)
     roc_auc: float = Field(ge=0, le=1)
@@ -57,6 +62,7 @@ class TrainingMetrics(BaseModel):
 
 class PredictionResult(BaseModel):
     """Prediction result for a single passenger."""
+
     passenger_id: int
     survival_probability: float = Field(ge=0, le=1)
     prediction: int = Field(ge=0, le=1)
@@ -65,6 +71,7 @@ class PredictionResult(BaseModel):
 
 class DatasetInfo(BaseModel):
     """Dataset information and statistics."""
+
     total_records: int = Field(ge=0)
     features: List[str]
     missing_values: Dict[str, int] = Field(default_factory=dict)
@@ -74,15 +81,16 @@ class DatasetInfo(BaseModel):
 
 class PipelineConfig(BaseModel):
     """Pipeline configuration."""
+
     data_path: Path
     model_output_path: Path = Field(default_factory=lambda: Path("models"))
     use_polars: bool = Field(default=True, description="Use Polars for data processing")
     enable_hyperparameter_tuning: bool = Field(default=True)
     n_trials: int = Field(default=100, ge=10)
-    
+
     class Config:
         arbitrary_types_allowed = True
-        
+
     @field_validator("data_path", "model_output_path")
     @classmethod
     def validate_paths(cls, v: Any) -> Path:
