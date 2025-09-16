@@ -1,6 +1,6 @@
 # ML application from scratch fo Titanic Dataset Analysis and Prediction
 
-Create a machine learning application that analyzes the Titanic dataset and predicts passenger survival.
+Create a machine learning CLI application that analyzes the Titanic dataset and predicts passenger survival.
 The application must use modern tools for data processing, model training, and evaluation.
 Datasets might be found in data/ folder.
 
