@@ -88,10 +88,10 @@ follow_untyped_imports = true
 
 [tool.ruff]
 target-version = "py313"
-exclude = ["hooks", "frontend"]
 
 [tool.ruff.lint]
 select = ["ALL"]
+extend-select = ["I"]
 external = ["WPS"]
 ignore = [
     "D104", # Ignore missing docstrings in packages
@@ -113,14 +113,14 @@ ignore = [
     "D103", # Ignore missing docstrings in tests
     "D100", # Ignore missing docstrings in public modules
 ]
-"titanic_ml/**/*.py" = ["RUF022", "D103", "D100", "RUF022", "I001"]
+"titanic_ml/**/*.py" = ["RUF022", "D103", "D100", "RUF022", "I001", "D413", "D213", "G004", "D202", "TID252", "E402", "TC002"]
 
 [tool.bandit]
 exclude_dirs = ["tests"]
 
 [tool.vulture]
 ignore_decorators = ["@app.command", 
-    "@model_validator", "@field_validator"]
+    "@model_validator", "@field_validator", "@cli.command", "@click.option"]
 ignore_names = ["model_config", "return_value", "arbitrary_types_allowed", "Config"]
 
 [tool.pytest.ini_options]
