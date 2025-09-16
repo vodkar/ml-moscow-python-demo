@@ -125,9 +125,6 @@ ruff,/Users/somen/Zavodi/opensource/ml-moscow-python-demo/titanic_ml/main.py,258
 ruff,/Users/somen/Zavodi/opensource/ml-moscow-python-demo/titanic_ml/main.py,295,error
 ruff,/Users/somen/Zavodi/opensource/ml-moscow-python-demo/titanic_ml/main.py,296,error
 ruff,/Users/somen/Zavodi/opensource/ml-moscow-python-demo/titanic_ml/pipeline/prediction.py,4,warning
-ruff,/Users/somen/Zavodi/opensource/ml-moscow-python-demo/titanic_ml/pipeline/prediction.py,10,error
-ruff,/Users/somen/Zavodi/opensource/ml-moscow-python-demo/titanic_ml/pipeline/prediction.py,11,error
-ruff,/Users/somen/Zavodi/opensource/ml-moscow-python-demo/titanic_ml/pipeline/prediction.py,12,error
 ruff,/Users/somen/Zavodi/opensource/ml-moscow-python-demo/titanic_ml/pipeline/prediction.py,20,error
 ruff,/Users/somen/Zavodi/opensource/ml-moscow-python-demo/titanic_ml/pipeline/prediction.py,20,warning
 ruff,/Users/somen/Zavodi/opensource/ml-moscow-python-demo/titanic_ml/pipeline/prediction.py,20,error
@@ -140,10 +137,6 @@ ruff,/Users/somen/Zavodi/opensource/ml-moscow-python-demo/titanic_ml/pipeline/pr
 ruff,/Users/somen/Zavodi/opensource/ml-moscow-python-demo/titanic_ml/pipeline/training.py,3,error
 ruff,/Users/somen/Zavodi/opensource/ml-moscow-python-demo/titanic_ml/pipeline/training.py,4,warning
 ruff,/Users/somen/Zavodi/opensource/ml-moscow-python-demo/titanic_ml/pipeline/training.py,6,error
-ruff,/Users/somen/Zavodi/opensource/ml-moscow-python-demo/titanic_ml/pipeline/training.py,9,error
-ruff,/Users/somen/Zavodi/opensource/ml-moscow-python-demo/titanic_ml/pipeline/training.py,10,error
-ruff,/Users/somen/Zavodi/opensource/ml-moscow-python-demo/titanic_ml/pipeline/training.py,11,error
-ruff,/Users/somen/Zavodi/opensource/ml-moscow-python-demo/titanic_ml/pipeline/training.py,12,error
 ruff,/Users/somen/Zavodi/opensource/ml-moscow-python-demo/titanic_ml/pipeline/training.py,20,error
 ruff,/Users/somen/Zavodi/opensource/ml-moscow-python-demo/titanic_ml/pipeline/training.py,20,warning
 ruff,/Users/somen/Zavodi/opensource/ml-moscow-python-demo/titanic_ml/pipeline/training.py,20,error

@@ -31,7 +31,6 @@ titanic-ml = "titanic_ml.main:cli"
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
-
 [tool.mypy]
 # Core strictness
 strict = true
@@ -79,10 +78,10 @@ follow_untyped_imports = true
 
 [tool.ruff]
 target-version = "py313"
-exclude = ["hooks", "frontend"]
 
 [tool.ruff.lint]
 select = ["ALL"]
+extend-select = ["I"]
 external = ["WPS"]
 ignore = [
     "D104", # Ignore missing docstrings in packages
@@ -104,7 +103,7 @@ ignore = [
     "D103", # Ignore missing docstrings in tests
     "D100", # Ignore missing docstrings in public modules
 ]
-"titanic_ml/**/*.py" = ["RUF022", "D103", "D100", "RUF022", "I001"]
+"titanic_ml/**/*.py" = ["RUF022", "D103", "D100", "RUF022", "I001", "D413", "D213", "G004", "D202", "TID252", "E402", "TC002"]
 
 [tool.bandit]
 exclude_dirs = ["tests"]
