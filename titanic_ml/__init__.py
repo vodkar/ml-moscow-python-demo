@@ -1,2 +1,1 @@
 """Titanic ML application package."""
-

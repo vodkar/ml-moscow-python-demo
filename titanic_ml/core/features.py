@@ -32,7 +32,9 @@ def build_preprocessor() -> ColumnTransformer:
             ("imputer", SimpleImputer(strategy="most_frequent")),
             (
                 "encoder",
-                OneHotEncoder(handle_unknown="ignore", sparse_output=False, dtype=float),
+                OneHotEncoder(
+                    handle_unknown="ignore", sparse_output=False, dtype=float
+                ),
             ),
         ]
     )

@@ -12,7 +12,9 @@ from ..core.config import ARTIFACTS_DIR, MODEL_FILE_NAME
 from ..core.features import PASSENGER_ID_COL, select_features
 
 
-def predict_batch(input_csv: Path | str, model_path: Path | None = None) -> pd.DataFrame:
+def predict_batch(
+    input_csv: Path | str, model_path: Path | None = None
+) -> pd.DataFrame:
     """Run batch prediction on an input CSV using the persisted model.
 
     Args:
@@ -30,6 +32,9 @@ def predict_batch(input_csv: Path | str, model_path: Path | None = None) -> pd.D
     X = select_features(df)
     preds = pipeline.predict(X)  # numpy array-like
     out_df = pd.DataFrame(
-        {PASSENGER_ID_COL: df[PASSENGER_ID_COL].astype(int), "Survived": pd.Series(preds, dtype=int)}
+        {
+            PASSENGER_ID_COL: df[PASSENGER_ID_COL].astype(int),
+            "Survived": pd.Series(preds, dtype=int),
+        }
     )
     return out_df

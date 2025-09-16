@@ -26,8 +26,9 @@ DEFAULT_COLUMNS: Final[tuple[str, ...]] = (
 )
 
 
-
-def read_csv_frame(path: Path | str, usecols: tuple[str, ...] | None = None) -> pd.DataFrame:
+def read_csv_frame(
+    path: Path | str, usecols: tuple[str, ...] | None = None
+) -> pd.DataFrame:
     """Read a CSV into a DataFrame with selected columns and dtypes.
 
     Args:
@@ -58,8 +59,6 @@ def iter_csv_chunks(
     """
 
     selected: list[str] = list(usecols if usecols is not None else DEFAULT_COLUMNS)
-    reader = pd.read_csv(
-        Path(path), usecols=selected, chunksize=chunk_size
-    )
+    reader = pd.read_csv(Path(path), usecols=selected, chunksize=chunk_size)
     for chunk in cast(Iterator[pd.DataFrame], reader):
         yield chunk

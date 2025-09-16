@@ -10,8 +10,14 @@ from sklearn.metrics import accuracy_score, roc_auc_score
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 
-from ..core.config import (DATA_DIR, MODEL_FILE_NAME, PREPROCESSOR_FILE_NAME,
-                           TRAIN_FILE_NAME, TrainConfig, ensure_artifacts_dir)
+from ..core.config import (
+    DATA_DIR,
+    MODEL_FILE_NAME,
+    PREPROCESSOR_FILE_NAME,
+    TRAIN_FILE_NAME,
+    TrainConfig,
+    ensure_artifacts_dir,
+)
 from ..core.data import read_csv_frame
 from ..core.features import TARGET_COL, build_preprocessor, select_features
 from ..core.model import build_classifier
@@ -44,10 +50,12 @@ def train_model(config: TrainConfig | None = None) -> dict[str, float]:
     preprocessor = build_preprocessor()
     clf = build_classifier(cfg)
 
-    pipeline: Pipeline = Pipeline(steps=[
-        ("preprocessor", preprocessor),
-        ("classifier", clf),
-    ])
+    pipeline: Pipeline = Pipeline(
+        steps=[
+            ("preprocessor", preprocessor),
+            ("classifier", clf),
+        ]
+    )
 
     pipeline.fit(X_train, y_train)
 

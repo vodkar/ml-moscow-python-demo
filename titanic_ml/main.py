@@ -30,11 +30,16 @@ def train(
         random_state=random_state,
     )
     metrics = train_model(cfg)
-    typer.echo(f"Accuracy: {metrics['accuracy']:.4f}; ROC-AUC: {metrics['roc_auc']:.4f}")
+    typer.echo(
+        f"Accuracy: {metrics['accuracy']:.4f}; ROC-AUC: {metrics['roc_auc']:.4f}"
+    )
 
 
 @app.command()
-def predict(input_csv: Path = typer.Argument(..., exists=True, readable=True), output_csv: Path = typer.Option(Path("predictions.csv"), help="Output CSV path")) -> None:
+def predict(
+    input_csv: Path = typer.Argument(..., exists=True, readable=True),
+    output_csv: Path = typer.Option(Path("predictions.csv"), help="Output CSV path"),
+) -> None:
     """Run batch prediction and save to CSV."""
 
     out_df = predict_batch(input_csv)
