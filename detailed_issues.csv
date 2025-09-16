@@ -30,10 +30,6 @@ flake8_wps,titanic_ml/core/data.py,42,warning
 flake8_wps,titanic_ml/core/data.py,48,warning
 flake8_wps,titanic_ml/core/data.py,61,warning
 flake8_wps,titanic_ml/core/features.py,69,warning
-flake8_wps,titanic_ml/core/model.py,7,warning
-flake8_wps,titanic_ml/main.py,10,warning
-flake8_wps,titanic_ml/main.py,11,warning
-flake8_wps,titanic_ml/main.py,12,warning
 flake8_wps,titanic_ml/main.py,19,warning
 flake8_wps,titanic_ml/main.py,19,warning
 flake8_wps,titanic_ml/main.py,20,warning
@@ -43,14 +39,8 @@ flake8_wps,titanic_ml/main.py,22,warning
 flake8_wps,titanic_ml/main.py,22,warning
 flake8_wps,titanic_ml/main.py,40,warning
 flake8_wps,titanic_ml/main.py,41,warning
-flake8_wps,titanic_ml/pipeline/prediction.py,11,warning
-flake8_wps,titanic_ml/pipeline/prediction.py,12,warning
 flake8_wps,titanic_ml/pipeline/prediction.py,15,warning
 flake8_wps,titanic_ml/pipeline/prediction.py,32,warning
-flake8_wps,titanic_ml/pipeline/training.py,13,warning
-flake8_wps,titanic_ml/pipeline/training.py,21,warning
-flake8_wps,titanic_ml/pipeline/training.py,22,warning
-flake8_wps,titanic_ml/pipeline/training.py,23,warning
 flake8_wps,titanic_ml/pipeline/training.py,26,warning
 flake8_wps,titanic_ml/pipeline/training.py,43,warning
 flake8_wps,titanic_ml/pipeline/training.py,44,warning
