@@ -1,0 +1,11 @@
+{
+  "total_passengers": 418,
+  "predicted_survivors": 150,
+  "predicted_non_survivors": 268,
+  "survival_rate": 0.3588516746411483,
+  "avg_survival_probability": 0.40452379533858374,
+  "min_survival_probability": 0.003616404952481389,
+  "max_survival_probability": 0.995554506778717,
+  "high_confidence_predictions": 311,
+  "low_confidence_predictions": 31
+}
