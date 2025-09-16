@@ -15,7 +15,9 @@ class FeatureEncoder:
     - Keeps consistent columns between train and inference
     """
 
-    def __init__(self, numeric: list[str], categorical: list[str], drop: list[str] | None = None):
+    def __init__(
+        self, numeric: list[str], categorical: list[str], drop: list[str] | None = None
+    ):
         self.numeric = numeric
         self.categorical = categorical
         self.drop = drop or []
@@ -68,17 +70,23 @@ class FeatureEncoder:
         df_cast = df.with_columns([pl.col(c).cast(pl.Utf8) for c in cat_cols])
         dummies = df_cast.select(cat_cols).to_dummies(separator="=")
         # convert to float for sklearn compatibility
-        dummies = dummies.select([pl.col(c).cast(pl.Float64).alias(c) for c in dummies.columns])
+        dummies = dummies.select(
+            [pl.col(c).cast(pl.Float64).alias(c) for c in dummies.columns]
+        )
         return dummies
 
     # Persistence
     def dump(self, path: Path) -> None:
-        path.write_text(json.dumps({
-            "numeric": self.numeric,
-            "categorical": self.categorical,
-            "drop": self.drop,
-            "columns": self.columns_,
-        }))
+        path.write_text(
+            json.dumps(
+                {
+                    "numeric": self.numeric,
+                    "categorical": self.categorical,
+                    "drop": self.drop,
+                    "columns": self.columns_,
+                }
+            )
+        )
 
     @classmethod
     def load(cls, path: Path) -> "FeatureEncoder":

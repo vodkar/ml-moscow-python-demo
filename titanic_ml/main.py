@@ -20,7 +20,9 @@ console = Console()
 @app.command()
 def train(
     train_csv: Path = typer.Option(Path("data/train.csv"), help="Path to train CSV"),
-    artifacts_dir: Path = typer.Option(Path("artifacts"), help="Where to save artifacts"),
+    artifacts_dir: Path = typer.Option(
+        Path("artifacts"), help="Where to save artifacts"
+    ),
 ):
     cfg = AppConfig()
     cfg.paths.train_csv = train_csv
@@ -34,7 +36,11 @@ def train(
     )
 
     console.rule("Fit features + model")
-    encoder = FeatureEncoder(cfg.train.numeric_features, cfg.train.categorical_features, cfg.train.drop_features)
+    encoder = FeatureEncoder(
+        cfg.train.numeric_features,
+        cfg.train.categorical_features,
+        cfg.train.drop_features,
+    )
     model = TitanicModel(encoder)
     model.fit(Xtr, ytr)
 
@@ -61,7 +67,9 @@ def train(
 @app.command()
 def evaluate_cmd(
     train_csv: Path = typer.Option(Path("data/train.csv"), help="Path to train CSV"),
-    artifacts_dir: Path = typer.Option(Path("artifacts"), help="Artifacts dir with model"),
+    artifacts_dir: Path = typer.Option(
+        Path("artifacts"), help="Artifacts dir with model"
+    ),
 ):
     cfg = AppConfig()
     cfg.paths.train_csv = train_csv
@@ -92,8 +100,12 @@ def evaluate_cmd(
 @app.command()
 def predict(
     test_csv: Path = typer.Option(Path("data/test.csv"), help="Path to test CSV"),
-    artifacts_dir: Path = typer.Option(Path("artifacts"), help="Artifacts dir with model"),
-    out_csv: Path = typer.Option(Path("artifacts/predictions.csv"), help="Path to save predictions"),
+    artifacts_dir: Path = typer.Option(
+        Path("artifacts"), help="Artifacts dir with model"
+    ),
+    out_csv: Path = typer.Option(
+        Path("artifacts/predictions.csv"), help="Path to save predictions"
+    ),
     id_col: str = typer.Option("PassengerId", help="ID column name in test.csv"),
 ):
     cfg = AppConfig()

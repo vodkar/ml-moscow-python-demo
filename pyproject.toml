@@ -92,7 +92,7 @@ ignore = [
     "D103", # Ignore missing docstrings in tests
     "D100", # Ignore missing docstrings in public modules
 ]
-"titanic_ml/" = ["RUF022", "D103"]
+"titanic_ml/**/*.py" = ["RUF022", "D103", "D100", "RUF022"]
 
 [tool.bandit]
 exclude_dirs = ["tests"]

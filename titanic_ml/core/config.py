@@ -11,8 +11,12 @@ class Paths(BaseModel):
     test_csv: Path = Field(default_factory=lambda: Path("data/test.csv"))
     artifacts_dir: Path = Field(default_factory=lambda: Path("artifacts"))
     model_path: Path = Field(default_factory=lambda: Path("artifacts/model.joblib"))
-    features_path: Path = Field(default_factory=lambda: Path("artifacts/feature_columns.json"))
-    predictions_path: Path = Field(default_factory=lambda: Path("artifacts/predictions.csv"))
+    features_path: Path = Field(
+        default_factory=lambda: Path("artifacts/feature_columns.json")
+    )
+    predictions_path: Path = Field(
+        default_factory=lambda: Path("artifacts/predictions.csv")
+    )
 
 
 class TrainConfig(BaseModel):

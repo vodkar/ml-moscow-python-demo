@@ -57,7 +57,9 @@ class TitanicModel:
         return inst
 
 
-def evaluate(y_true: np.ndarray, y_pred: np.ndarray, y_proba: np.ndarray | None = None) -> dict:
+def evaluate(
+    y_true: np.ndarray, y_pred: np.ndarray, y_proba: np.ndarray | None = None
+) -> dict:
     metrics = {"accuracy": float(accuracy_score(y_true, y_pred))}
     if y_proba is not None:
         try:
