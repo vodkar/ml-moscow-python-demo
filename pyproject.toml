@@ -1,7 +1,47 @@
 [project]
 name = "ml-moscow-python-demo"
 version = "0.1.0"
-description = "Add your description here"
+description = "High-performance ML application for Titanic dataset analysis and prediction"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "polars>=0.20.0",
+    "scikit-learn>=1.4.0",
+    "xgboost>=2.0.0",
+    "click>=8.0.0",
+    "pydantic>=2.0.0",
+    "pydantic-settings>=2.0.0",
+    "joblib>=1.3.0",
+    "numpy>=1.24.0",
+    "rich>=13.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+]
+
+[project.scripts]
+titanic-ml = "titanic_ml.main:cli"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.black]
+line-length = 88
+target-version = ['py312']
+
+[tool.ruff]
+select = ["E", "F", "I", "N", "UP", "B"]
+ignore = []
+line-length = 88
+target-version = "py312"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "--cov=titanic_ml --cov-report=term-missing"
