@@ -57,11 +57,20 @@ class ModelTrainer:
             DataFrame with selected features
         """
         feature_columns = [
-            "Pclass", "Sex", "Age", "SibSp", "Parch", 
-            "Fare", "Embarked", "FamilySize", "IsAlone", 
-            "Title", "AgeBin", "FareBin"
+            "Pclass",
+            "Sex",
+            "Age",
+            "SibSp",
+            "Parch",
+            "Fare",
+            "Embarked",
+            "FamilySize",
+            "IsAlone",
+            "Title",
+            "AgeBin",
+            "FareBin",
         ]
-        
+
         available_columns = [col for col in feature_columns if col in dataframe.columns]
         return dataframe[available_columns]
 
@@ -73,9 +82,9 @@ class ModelTrainer:
         """
         # Load training data
         train_dataframe = self.data_loader.load_train_data()
-        
+
         # Convert to pandas if using polars
-        if hasattr(train_dataframe, 'to_pandas'):
+        if hasattr(train_dataframe, "to_pandas"):
             train_dataframe = train_dataframe.to_pandas()
 
         # Separate features and target
@@ -85,7 +94,7 @@ class ModelTrainer:
         # Fit and transform features
         self.feature_engineer.fit(feature_data)
         transformed_features = self.feature_engineer.transform(feature_data)
-        
+
         # Select final features
         final_features = self._prepare_features(transformed_features)
 
@@ -112,7 +121,7 @@ class ModelTrainer:
 
         # Evaluate on validation set
         validation_metrics = self.model.evaluate(X_val, y_val)
-        
+
         # Cross-validation
         cv_results = self.model.cross_validate(X_train, y_train)
 
@@ -144,15 +153,16 @@ class ModelTrainer:
         # Create directories if they don't exist
         model_path = Path(self.config.save_model_path)
         preprocessor_path = Path(self.config.save_preprocessor_path)
-        
+
         model_path.parent.mkdir(parents=True, exist_ok=True)
         preprocessor_path.parent.mkdir(parents=True, exist_ok=True)
 
         # Save model and preprocessor
         self.model.save_model(str(model_path))
-        
+
         # Save feature engineer using joblib directly
         import joblib
+
         joblib.dump(self.feature_engineer, str(preprocessor_path))
 
     def get_feature_importance(self) -> pd.DataFrame | None:
@@ -172,7 +182,7 @@ class ModelTrainer:
             if hasattr(estimator, "feature_importances_"):
                 importance_dict = {
                     "model": name,
-                    "importances": estimator.feature_importances_.tolist()
+                    "importances": estimator.feature_importances_.tolist(),
                 }
                 importances.append(importance_dict)
 
@@ -180,7 +190,7 @@ class ModelTrainer:
             return None
 
         # Get feature names from the last training
-        if hasattr(self, '_last_feature_names'):
+        if hasattr(self, "_last_feature_names"):
             feature_names = self._last_feature_names
         else:
             # Fallback to generic feature names
@@ -188,10 +198,12 @@ class ModelTrainer:
             feature_names = [f"feature_{i}" for i in range(num_features)]
 
         # Create DataFrame
-        importance_dataframe = pd.DataFrame({
-            "feature": feature_names,
-            **{imp["model"]: imp["importances"] for imp in importances}
-        })
+        importance_dataframe = pd.DataFrame(
+            {
+                "feature": feature_names,
+                **{imp["model"]: imp["importances"] for imp in importances},
+            }
+        )
 
         return importance_dataframe
 

@@ -16,7 +16,7 @@ class ModelConfig(BaseModel):
     """Configuration for ensemble models."""
 
     use_random_forest: bool = Field(default=True)
-    use_xgboost: bool = Field(default=True)  
+    use_xgboost: bool = Field(default=True)
     use_logistic_regression: bool = Field(default=True)
     cv_folds: int = Field(default=5, ge=3, le=10)
     random_state: int = Field(default=42)
@@ -89,14 +89,14 @@ class TitanicEnsemble:
         self.models = self._create_base_models()
 
         estimators = [(name, model) for name, model in self.models.items()]
-        
+
         self.ensemble_model = VotingClassifier(
             estimators=estimators, voting="soft", n_jobs=self.config.n_jobs
         )
-        
+
         self.ensemble_model.fit(X_train, y_train)
         self.fitted_ = True
-        
+
         return self
 
     def predict(self, X_test: pd.DataFrame) -> pd.Series:
@@ -157,9 +157,9 @@ class TitanicEnsemble:
 
         predictions = self.predict(X_test)
         accuracy = accuracy_score(y_test, predictions)
-        
+
         report = classification_report(y_test, predictions, output_dict=True)
-        
+
         return {
             "accuracy": accuracy,
             "precision": report["macro avg"]["precision"],
@@ -168,7 +168,9 @@ class TitanicEnsemble:
             "classification_report": report,
         }
 
-    def cross_validate(self, X_train: pd.DataFrame, y_train: pd.Series) -> dict[str, float]:
+    def cross_validate(
+        self, X_train: pd.DataFrame, y_train: pd.Series
+    ) -> dict[str, float]:
         """Perform cross-validation on the ensemble model.
 
         Args:
@@ -185,9 +187,13 @@ class TitanicEnsemble:
             raise ValueError("Ensemble model must be created before cross-validation")
 
         cv_scores = cross_val_score(
-            self.ensemble_model, X_train, y_train, cv=self.config.cv_folds, scoring="accuracy"
+            self.ensemble_model,
+            X_train,
+            y_train,
+            cv=self.config.cv_folds,
+            scoring="accuracy",
         )
-        
+
         return {
             "mean_accuracy": float(cv_scores.mean()),
             "std_accuracy": float(cv_scores.std()),
@@ -211,7 +217,7 @@ class TitanicEnsemble:
             "config": self.config.model_dump(),
             "fitted_": self.fitted_,
         }
-        
+
         joblib.dump(model_data, filepath)
 
     @classmethod
@@ -225,12 +231,12 @@ class TitanicEnsemble:
             Loaded ensemble model
         """
         model_data = joblib.load(filepath)
-        
+
         config = ModelConfig(**model_data["config"])
         ensemble = cls(config)
         ensemble.ensemble_model = model_data["ensemble_model"]
         ensemble.fitted_ = model_data["fitted_"]
-        
+
         return ensemble
 
 

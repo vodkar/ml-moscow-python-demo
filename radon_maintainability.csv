@@ -1,0 +1,15 @@
+file,mi_score,mi_rank
+titanic_ml/__init__.py,100.0,A
+titanic_ml/cli.py,50.554522876064944,A
+titanic_ml/main.py,81.85633424453339,A
+titanic_ml/training/__init__.py,100.0,A
+titanic_ml/training/trainer.py,68.89637437391694,A
+titanic_ml/prediction/predictor.py,63.64065166540212,A
+titanic_ml/prediction/__init__.py,100.0,A
+titanic_ml/utils/__init__.py,100.0,A
+titanic_ml/models/__init__.py,100.0,A
+titanic_ml/models/ensemble.py,67.05558644165204,A
+titanic_ml/preprocessing/__init__.py,100.0,A
+titanic_ml/preprocessing/features.py,58.06199858408421,A
+titanic_ml/data/__init__.py,100.0,A
+titanic_ml/data/loader.py,77.42863851858502,A

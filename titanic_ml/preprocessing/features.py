@@ -55,7 +55,19 @@ class TitanicFeatureEngineer(BaseEstimator, TransformerMixin):
         if title_search:
             title = title_search.group(1)
             # Normalize rare titles
-            if title in ["Lady", "Countess", "Capt", "Col", "Don", "Dr", "Major", "Rev", "Sir", "Jonkheer", "Dona"]:
+            if title in [
+                "Lady",
+                "Countess",
+                "Capt",
+                "Col",
+                "Don",
+                "Dr",
+                "Major",
+                "Rev",
+                "Sir",
+                "Jonkheer",
+                "Dona",
+            ]:
                 return "Rare"
             elif title in ["Mlle", "Ms"]:
                 return "Miss"
@@ -77,9 +89,9 @@ class TitanicFeatureEngineer(BaseEstimator, TransformerMixin):
 
         # Fill Age with median grouped by Pclass and Sex
         if "Age" in processed_df.columns:
-            processed_df["Age"] = processed_df.groupby(["Pclass", "Sex"])["Age"].transform(
-                lambda group: group.fillna(group.median())
-            )
+            processed_df["Age"] = processed_df.groupby(["Pclass", "Sex"])[
+                "Age"
+            ].transform(lambda group: group.fillna(group.median()))
 
         # Fill Embarked with mode
         if "Embarked" in processed_df.columns:
@@ -106,8 +118,14 @@ class TitanicFeatureEngineer(BaseEstimator, TransformerMixin):
         """
         processed_df = dataframe.copy()
 
-        if self.config.create_family_size and "SibSp" in processed_df.columns and "Parch" in processed_df.columns:
-            processed_df["FamilySize"] = processed_df["SibSp"] + processed_df["Parch"] + 1
+        if (
+            self.config.create_family_size
+            and "SibSp" in processed_df.columns
+            and "Parch" in processed_df.columns
+        ):
+            processed_df["FamilySize"] = (
+                processed_df["SibSp"] + processed_df["Parch"] + 1
+            )
             processed_df["IsAlone"] = (processed_df["FamilySize"] == 1).astype(int)
 
         if self.config.extract_title_from_name and "Name" in processed_df.columns:
@@ -116,18 +134,24 @@ class TitanicFeatureEngineer(BaseEstimator, TransformerMixin):
         # Age groups
         if "Age" in processed_df.columns:
             processed_df["AgeBin"] = pd.cut(
-                processed_df["Age"], bins=[0, 12, 20, 40, 120], labels=["Child", "Teen", "Adult", "Elder"]
+                processed_df["Age"],
+                bins=[0, 12, 20, 40, 120],
+                labels=["Child", "Teen", "Adult", "Elder"],
             )
 
         # Fare bins
         if "Fare" in processed_df.columns:
             processed_df["FareBin"] = pd.qcut(
-                processed_df["Fare"], q=4, labels=["Low", "Medium-Low", "Medium-High", "High"]
+                processed_df["Fare"],
+                q=4,
+                labels=["Low", "Medium-Low", "Medium-High", "High"],
             )
 
         return processed_df
 
-    def fit(self, dataframe: pd.DataFrame, y: pd.Series | None = None) -> "TitanicFeatureEngineer":
+    def fit(
+        self, dataframe: pd.DataFrame, y: pd.Series | None = None
+    ) -> "TitanicFeatureEngineer":
         """Fit the feature engineer.
 
         Args:
@@ -155,7 +179,9 @@ class TitanicFeatureEngineer(BaseEstimator, TransformerMixin):
         # Fit scaler for numerical features
         if self.config.scale_numerical_features:
             numerical_cols = ["Age", "Fare", "FamilySize"]
-            available_cols = [col for col in numerical_cols if col in processed_df.columns]
+            available_cols = [
+                col for col in numerical_cols if col in processed_df.columns
+            ]
             if available_cols:
                 self.scaler = StandardScaler()
                 self.scaler.fit(processed_df[available_cols])
@@ -189,14 +215,20 @@ class TitanicFeatureEngineer(BaseEstimator, TransformerMixin):
         if self.config.encode_categorical_features:
             for column, encoder in self.label_encoders.items():
                 if column in processed_df.columns:
-                    processed_df[column] = encoder.transform(processed_df[column].astype(str))
+                    processed_df[column] = encoder.transform(
+                        processed_df[column].astype(str)
+                    )
 
         # Apply scaling
         if self.config.scale_numerical_features and self.scaler is not None:
             numerical_cols = ["Age", "Fare", "FamilySize"]
-            available_cols = [col for col in numerical_cols if col in processed_df.columns]
+            available_cols = [
+                col for col in numerical_cols if col in processed_df.columns
+            ]
             if available_cols:
-                processed_df[available_cols] = self.scaler.transform(processed_df[available_cols])
+                processed_df[available_cols] = self.scaler.transform(
+                    processed_df[available_cols]
+                )
 
         return processed_df
 
@@ -207,15 +239,15 @@ class TitanicFeatureEngineer(BaseEstimator, TransformerMixin):
             List of feature column names
         """
         base_features = ["Pclass", "Sex", "Age", "SibSp", "Parch", "Fare", "Embarked"]
-        
+
         derived_features = []
         if self.config.create_family_size:
             derived_features.extend(["FamilySize", "IsAlone"])
         if self.config.extract_title_from_name:
             derived_features.append("Title")
-        
+
         derived_features.extend(["AgeBin", "FareBin"])
-        
+
         return base_features + derived_features
 
 

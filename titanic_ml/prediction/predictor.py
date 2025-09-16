@@ -45,14 +45,14 @@ class TitanicPredictor:
 
         if not model_path.exists():
             raise FileNotFoundError(f"Model file not found: {model_path}")
-        
+
         if not preprocessor_path.exists():
             raise FileNotFoundError(f"Preprocessor file not found: {preprocessor_path}")
 
         # Load model and preprocessor
         self.model = TitanicEnsemble.load_model(str(model_path))
         self.feature_engineer = joblib.load(str(preprocessor_path))
-        
+
         self.loaded_ = True
 
     def _prepare_features(self, dataframe: pd.DataFrame) -> pd.DataFrame:
@@ -65,11 +65,20 @@ class TitanicPredictor:
             DataFrame with selected features
         """
         feature_columns = [
-            "Pclass", "Sex", "Age", "SibSp", "Parch", 
-            "Fare", "Embarked", "FamilySize", "IsAlone", 
-            "Title", "AgeBin", "FareBin"
+            "Pclass",
+            "Sex",
+            "Age",
+            "SibSp",
+            "Parch",
+            "Fare",
+            "Embarked",
+            "FamilySize",
+            "IsAlone",
+            "Title",
+            "AgeBin",
+            "FareBin",
         ]
-        
+
         available_columns = [col for col in feature_columns if col in dataframe.columns]
         return dataframe[available_columns]
 
@@ -94,20 +103,26 @@ class TitanicPredictor:
 
         # Make predictions
         predictions = self.model.predict(final_features)
-        
-        result_dataframe = pd.DataFrame({
-            "PassengerId": dataframe.index if "PassengerId" not in dataframe.columns else dataframe["PassengerId"],
-            "Survived": predictions
-        })
+
+        result_dataframe = pd.DataFrame(
+            {
+                "PassengerId": dataframe.index
+                if "PassengerId" not in dataframe.columns
+                else dataframe["PassengerId"],
+                "Survived": predictions,
+            }
+        )
 
         # Add probabilities if requested
         if self.config.output_probabilities:
             probabilities = self.model.predict_proba(final_features)
             result_dataframe["Survival_Probability"] = probabilities["class_1"]
             result_dataframe["Confidence"] = probabilities.max(axis=1)
-            
+
             # Add confidence-based prediction
-            high_confidence_mask = result_dataframe["Confidence"] >= self.config.confidence_threshold
+            high_confidence_mask = (
+                result_dataframe["Confidence"] >= self.config.confidence_threshold
+            )
             result_dataframe["High_Confidence"] = high_confidence_mask
 
         return result_dataframe
@@ -129,13 +144,13 @@ class TitanicPredictor:
 
         # Convert to DataFrame
         single_passenger_df = pd.DataFrame([passenger_data])
-        
+
         # Make prediction
         prediction_result = self.predict(single_passenger_df)
-        
+
         # Convert to dictionary
         result_dict = prediction_result.iloc[0].to_dict()
-        
+
         return result_dict
 
     def explain_prediction(self, dataframe: pd.DataFrame) -> pd.DataFrame | None:
@@ -161,9 +176,9 @@ class TitanicPredictor:
             final_features = dataframe
 
         # Get feature importance from the model
-        if hasattr(self.model, 'get_feature_importance'):
+        if hasattr(self.model, "get_feature_importance"):
             return None  # Would need to implement feature importance extraction
-        
+
         return None
 
     def batch_predict(self, input_file: str, output_file: str) -> None:
@@ -186,10 +201,10 @@ class TitanicPredictor:
 
         # Load data
         input_dataframe = pd.read_csv(input_path)
-        
+
         # Make predictions
         predictions = self.predict(input_dataframe)
-        
+
         # Save results
         output_path = Path(output_file)
         output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -215,10 +230,9 @@ class TitanicPredictor:
 
         if self.model.ensemble_model is not None:
             for name, estimator in self.model.ensemble_model.named_estimators_.items():
-                model_info["base_models"].append({
-                    "name": name,
-                    "type": type(estimator).__name__
-                })
+                model_info["base_models"].append(
+                    {"name": name, "type": type(estimator).__name__}
+                )
 
         return model_info
 

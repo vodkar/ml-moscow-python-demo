@@ -35,24 +35,88 @@ titanic-ml = "titanic_ml.cli:main"
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
-[tool.black]
-line-length = 88
-target-version = ['py312']
-
-[tool.isort]
-profile = "black"
-line_length = 88
-
 [tool.mypy]
-python_version = "3.12"
-warn_return_any = true
-warn_unused_configs = true
+# Core strictness
+strict = true
+extra_checks = true                # opt-in stricter checks beyond --strict
+warn_unreachable = true            # not included in --strict; catch dead/ redundant code
+implicit_reexport = false          # require explicit re-exports (no implicit module exports)
+local_partial_types = true         # force annotations for top-level/class partial types
+strict_equality = true             # prohibit always-false/true comparisons
+
+# Be ruthless about Any
+disallow_any_unimported = true
+disallow_any_decorated = true
+disallow_any_explicit = true
+disallow_any_generics = true
+disallow_subclassing_any = true
+
+# No untyped or half-typed defs/calls
+disallow_untyped_calls = true
 disallow_untyped_defs = true
-check_untyped_defs = true
+disallow_incomplete_defs = true
+
+# Hygiene & signal
+warn_return_any = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+show_error_codes = true
+
+# Optional error codes that make reviews sharper
+enable_error_code = [
+  "ignore-without-code",   # every `# type: ignore` must be specific
+  "redundant-expr",        # flag obviously redundant boolean logic
+  "possibly-undefined",    # variables not defined on all paths
+  "truthy-bool",           # questionable truthiness checks
+  "truthy-iterable",       # questionable truthiness checks on iterables
+  "deprecated",            # use of @deprecated (PEP 702 / typing_extensions)
+  "exhaustive-match"       # non-exhaustive `match` on enums / unions (where supported)
+]
+
+# Optional: make the default on recent mypy explicit (safer across versions)
+implicit_optional = false
+
+[[tool.mypy.overrides]]
+module = ["joblib.*", "sklearn.*", "xgboost.*", "lightgbm.*"]
+follow_untyped_imports = true
 
 [tool.ruff]
-target-version = "py312"
-line-length = 88
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["ALL"]
+extend-select = ["I"]
+external = ["WPS"]
+ignore = [
+    "D104", # Ignore missing docstrings in packages
+    "COM812", # Allow f-strings with single curly braces
+    "D203", # 1 blank line required before class docstring (conflicts with D211)
+    "D212", # Multi-line docstring summary should start at the first line
+    "E501",
+]
+
+[tool.ruff.lint.extend-per-file-ignores]
+"tests/**/*.py" = [
+    # at least this three should be fine in tests:
+    "S101", # asserts allowed in tests...
+    "ARG", # Unused function args -> fixtures nevertheless are functionally relevant...
+    "FBT", # Don't care about booleans as positional arguments in tests, e.g. via @pytest.mark.parametrize()
+    # The below are debateable
+    "PLR2004", # Magic value used in comparison, ...
+    "S311", # Standard pseudo-random generators are not suitable for cryptographic purposes
+    "D103", # Ignore missing docstrings in tests
+    "D100", # Ignore missing docstrings in public modules
+]
+"titanic_ml/**/*.py" = ["RUF022", "D103", "D100", "RUF022", "I001", "D413", "D213", "G004", "D202", "TID252", "E402", "TC002"]
+
+[tool.bandit]
+exclude_dirs = ["tests"]
+
+[tool.vulture]
+ignore_decorators = ["@app.command", 
+    "@model_validator", "@field_validator", "@cli.command", "@click.option"]
+ignore_names = ["model_config", "return_value", "arbitrary_types_allowed", "Config"]
+
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
