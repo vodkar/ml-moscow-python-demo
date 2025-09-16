@@ -1,0 +1,2 @@
+"""Titanic ML application package."""
+
