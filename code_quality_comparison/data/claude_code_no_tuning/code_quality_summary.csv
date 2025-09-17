@@ -1,0 +1,8 @@
+Tool,Total Issues (A excl),Files Analyzed,Issues per File
+bandit,0,0,0.0
+ruff,269,7,38.42857142857143
+mypy,113,8,14.125
+radon_cc,11,5,2.2
+radon_mi,0,0,0.0
+flake8_wps,190,8,23.75
+vulture,29,4,7.25

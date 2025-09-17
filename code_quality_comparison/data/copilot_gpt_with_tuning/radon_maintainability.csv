@@ -1,0 +1,11 @@
+file,mi_score,mi_rank
+titanic_ml/__init__.py,100.0,A
+titanic_ml/main.py,73.5348666835797,A
+titanic_ml/pipeline/__init__.py,100.0,A
+titanic_ml/pipeline/prediction.py,90.29508593120485,A
+titanic_ml/pipeline/training.py,78.64266755205921,A
+titanic_ml/core/config.py,83.53266214620456,A
+titanic_ml/core/__init__.py,100.0,A
+titanic_ml/core/features.py,88.47037575531664,A
+titanic_ml/core/model.py,100.0,A
+titanic_ml/core/data.py,92.70738400675255,A
