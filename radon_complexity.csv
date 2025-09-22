@@ -1,0 +1,13 @@
+file,function,line,complexity,rank,type
+titanic_ml/main.py,train,18,1,A,function
+titanic_ml/main.py,predict,39,1,A,function
+titanic_ml/main.py,main,50,1,A,function
+titanic_ml/pipeline/prediction.py,predict_batch,15,2,A,function
+titanic_ml/pipeline/training.py,train_model,26,2,A,function
+titanic_ml/core/config.py,ensure_artifacts_dir,43,1,A,function
+titanic_ml/core/config.py,TrainConfig,25,1,A,class
+titanic_ml/core/features.py,build_preprocessor,23,1,A,function
+titanic_ml/core/features.py,select_features,59,1,A,function
+titanic_ml/core/model.py,build_classifier,10,1,A,function
+titanic_ml/core/data.py,iter_csv_chunks,47,3,A,function
+titanic_ml/core/data.py,read_csv_frame,29,2,A,function
